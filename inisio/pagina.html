@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIGBA - Panel</title>
+    <link rel="stylesheet" href="pagina.css">
+</head>
+<body>
+
+    <!-- ==================== HEADER ==================== -->
+    <header class="bandeja">
+        <div class="header-izquierda">
+            <img src="../IMG/Logo [Recuperado].png" alt="Logo SIGBA" class="logo-sigba">
+            <h2 class="sigba" id="nombreUsuario">SIGBA</h2>
+        </div>
+
+        <nav class="links">
+            <a href="#eventos">Inicio</a>
+            <a href="#calendario">Calendario</a>
+            <a href="#alertas">Alertas</a>
+            <a href="#perfil">Mi Perfil</a>
+            <span class="rol-badge" id="badgeRol"></span>
+            <a href="#" class="btn-logout" id="btnCerrarSesion">Cerrar Sesión</a>
+        </nav>
+
+        <div class="header-derecha">
+            <img src="../IMG/Logosimbolo_SENA_2022.svg.webp" alt="Logo SENA" class="logo-sena">
+        </div>
+    </header>
+
+    <!-- ==================== CARRUSEL (solo aprendiz) ==================== -->
+    <section class="carrusel-fullwidth solo-aprendiz" id="carruselSection">
+        <div class="carrusel" id="carrusel">
+            <div class="carrusel-item"><img src="../IMG/foto_1.jpg" alt="Imagen 1"></div>
+            <div class="carrusel-item"><img src="../IMG/foto_2.jpg" alt="Imagen 2"></div>
+            <div class="carrusel-item"><img src="../IMG/foto_3.png" alt="Imagen 3"></div>
+        </div>
+        <button class="btn-carrusel atras" id="atras">&#10094;</button>
+        <button class="btn-carrusel adelante" id="adelante">&#10095;</button>
+    </section>
+
+    <!-- ==================== CONTENIDO PRINCIPAL ==================== -->
+    <div class="contenido-principal">
+
+        <!-- ========== PANEL PROFESIONAL ========== -->
+        <section id="panelProfesional" class="panel-rol oculto">
+
+            <div class="titulo-seccion">
+                <h3>Panel del Profesional</h3>
+                <p>Gestiona aprendices, subsidios, eventos y reportes del sistema SIGBA.</p>
+            </div>
+
+            <div class="cards-resumen">
+                <div class="card">
+                    <h4>Aprendices registrados</h4>
+                    <p class="numero" id="totalAprendices">0</p>
+                </div>
+                <div class="card">
+                    <h4>Subsidios activos</h4>
+                    <p class="numero" id="totalSubsidios">0</p>
+                </div>
+                <div class="card">
+                    <h4>Eventos del mes</h4>
+                    <p class="numero" id="totalEventos">0</p>
+                </div>
+                <div class="card">
+                    <h4>Solicitudes pendientes</h4>
+                    <p class="numero" id="totalPendientes">0</p>
+                </div>
+            </div>
+
+            <div class="acciones-admin">
+                <h4>Acciones rápidas</h4>
+                <div class="botones-admin">
+                    <button class="btn-admin" id="btnCrearEvento">➕ Crear evento</button>
+                    <button class="btn-admin" id="btnAprobarSubsidio">✅ Aprobar subsidios</button>
+                    <button class="btn-admin" id="btnVerAprendices">👥 Ver aprendices</button>
+                    <button class="btn-admin" id="btnGenerarReporte">📊 Generar reporte</button>
+                </div>
+            </div>
+
+            <div class="tabla-subsidio">
+                <h4>Solicitudes pendientes</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Aprendiz</th>
+                            <th>Ficha</th>
+                            <th>Tipo</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaPendientesBody"></tbody>
+                </table>
+            </div>
+
+            <div class="form-evento oculto" id="formEvento">
+                <h4>Nuevo evento</h4>
+                <form id="crearEventoForm">
+                    <div class="input-group">
+                        <label for="evTitulo">Título</label>
+                        <input type="text" id="evTitulo" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="evFecha">Fecha</label>
+                        <input type="date" id="evFecha" required>
+                    </div>
+                    <div class="input-group">
+                        <label for="evDescripcion">Descripción</label>
+                        <textarea id="evDescripcion" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">Guardar evento</button>
+                    <button type="button" class="btn-cancelar" id="btnCancelarEvento">Cancelar</button>
+                </form>
+                <p class="mensaje" id="mensajeEvento"></p>
+            </div>
+
+        </section>
+
+        <!-- ========== PANEL APRENDIZ ========== -->
+        <section id="panelAprendiz" class="panel-rol oculto">
+
+            <section id="eventos">
+                <div class="titulo-seccion">
+                    <h3>Calendario de Eventos y Convocatorias</h3>
+                    <p>Mantente al día con los talleres, actividades deportivas y convocatorias de apoyo.</p>
+                </div>
+
+                <div class="calendario-container">
+                    <div class="calendario-header">
+                        <button id="mesAnterior">&#10094;</button>
+                        <h4 id="mesActual">Septiembre 2026</h4>
+                        <button id="mesSiguiente">&#10095;</button>
+                    </div>
+                    <div class="calendario-dias-semana">
+                        <span>Dom</span><span>Lun</span><span>Mar</span><span>Mié</span>
+                        <span>Jue</span><span>Vie</span><span>Sáb</span>
+                    </div>
+                    <div class="calendario-grid" id="calendarioGrid"></div>
+                </div>
+
+                <div class="evento-detalle" id="eventoDetalle">
+                    <p><em>Haz clic en un día con evento para ver los detalles.</em></p>
+                </div>
+            </section>
+
+            <hr>
+
+            <section id="subsidio-transporte">
+                <div class="titulo-seccion">
+                    <h3>Aprendices que recibieron el Subsidio de Transporte</h3>
+                    <p>Listado de beneficiarios del apoyo de transporte del periodo actual.</p>
+                </div>
+                <div class="tabla-subsidio">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th><th>Nombre completo</th><th>Cédula</th>
+                                <th>Ficha</th><th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaSubsidioBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+            <hr>
+
+            <section id="subsidio-alimentacion">
+                <div class="titulo-seccion">
+                    <h3>🍽️ Aprendices que recibieron el Subsidio de Alimentación</h3>
+                    <p>Beneficiarios del apoyo alimentario del periodo actual.</p>
+                </div>
+                <div class="tabla-subsidio">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th><th>Nombre completo</th><th>Cédula</th>
+                                <th>Ficha</th><th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaAlimentacionBody"></tbody>
+                    </table>
+                </div>
+            </section>
+
+        </section>
+
+    </div>
+
+    <footer>
+        <p><strong>SENA - Centro de Servicios Financieros (C.S.F)</strong></p>
+        <p>Área de Bienestar al Aprendiz</p>
+        <p><em>Este es un sistema en desarrollo (Proyecto SIGBA - 2026).</em></p>
+    </footer>
+
+    <script src="pagina.js"></script>
+</body>
+</html>
