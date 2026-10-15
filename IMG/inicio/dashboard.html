@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Panel de administración del sistema">
+    <title>Dashboard Administrador | Sistema</title>
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+    <!-- ============ MENÚ LATERAL ============ -->
+    <aside class="sidebar" id="sidebar">
+        <header class="sidebar-header">
+            <h1 class="logo">Admin<span>Panel</span></h1>
+            <button type="button" class="btn-cerrar-sidebar" id="cerrarSidebar" aria-label="Cerrar menú">&times;</button>
+        </header>
+
+        <nav class="sidebar-nav" aria-label="Menú principal">
+            <ul>
+                <li>
+                    <a href="#resumen" class="nav-link activo" data-seccion="resumen">
+                        <span class="nav-texto">Resumen</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#usuarios" class="nav-link" data-seccion="usuarios">
+                        <span class="nav-texto">Usuarios</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#estadisticas" class="nav-link" data-seccion="estadisticas">
+                        <span class="nav-texto">Estadísticas</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#reportes" class="nav-link" data-seccion="reportes">
+                        <span class="nav-texto">Reportes</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#configuracion" class="nav-link" data-seccion="configuracion">
+                        <span class="nav-texto">Configuración</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <footer class="sidebar-footer">
+            <div class="usuario-info">
+                <span class="avatar" aria-hidden="true">A</span>
+                <div class="usuario-datos">
+                    <strong id="nombreAdmin">Administrador</strong>
+                    <small id="emailAdmin">admin@test.com</small>
+                </div>
+            </div>
+            <button type="button" class="btn-cerrar-sesion" id="btnCerrarSesion">
+                Cerrar sesión
+            </button>
+        </footer>
+    </aside>
+
+    <!-- ============ OVERLAY PARA MÓVIL ============ -->
+    <div class="overlay" id="overlay" hidden></div>
+
+    <!-- ============ CONTENIDO PRINCIPAL ============ -->
+    <div class="contenido-principal">
+
+        <!-- ============ HEADER SUPERIOR ============ -->
+        <header class="topbar">
+            <button type="button" class="btn-menu" id="abrirSidebar" aria-label="Abrir menú">&#9776;</button>
+            <h2 class="titulo-seccion" id="tituloSeccion">Resumen</h2>
+            <div class="topbar-acciones">
+                <span class="fecha-hoy" id="fechaHoy"></span>
+            </div>
+        </header>
+
+        <!-- ============ CONTENIDO ============ -->
+        <main class="contenido">
+
+            <!-- ============ SECCIÓN RESUMEN ============ -->
+            <section id="seccion-resumen" class="seccion activa" aria-labelledby="titulo-resumen">
+                <h3 id="titulo-resumen" class="titulo-oculto">Resumen general</h3>
+
+                <div class="grid-kpis">
+                    <article class="kpi">
+                        <header class="kpi-header">
+                            <h4>Usuarios totales</h4>
+                        </header>
+                        <p class="kpi-valor" id="kpiUsuarios">0</p>
+                        <small class="kpi-detalle">Registrados en el sistema</small>
+                    </article>
+
+                    <article class="kpi">
+                        <header class="kpi-header">
+                            <h4>Aprendices</h4>
+                        </header>
+                        <p class="kpi-valor" id="kpiAprendices">0</p>
+                        <small class="kpi-detalle">Rol Aprendiz</small>
+                    </article>
+
+                    <article class="kpi">
+                        <header class="kpi-header">
+                            <h4>Profesionales</h4>
+                        </header>
+                        <p class="kpi-valor" id="kpiProfesionales">0</p>
+                        <small class="kpi-detalle">Rol Profesional</small>
+                    </article>
+
+                    <article class="kpi">
+                        <header class="kpi-header">
+                            <h4>Sesión activa</h4>
+                        </header>
+                        <p class="kpi-valor" id="kpiSesion">—</p>
+                        <small class="kpi-detalle" id="kpiSesionDetalle">Sin sesión</small>
+                    </article>
+                </div>
+
+                <section class="panel">
+                    <header class="panel-header">
+                        <h4>Usuarios por rol</h4>
+                    </header>
+                    <div class="panel-body">
+                        <div class="grafico-barras" id="graficoRoles">
+                            <div class="barra-item">
+                                <span class="barra-label">Aprendices</span>
+                                <div class="barra-fondo">
+                                    <div class="barra-relleno" id="barraAprendices" style="width: 0%"></div>
+                                </div>
+                                <span class="barra-valor" id="barraAprendicesValor">0</span>
+                            </div>
+                            <div class="barra-item">
+                                <span class="barra-label">Profesionales</span>
+                                <div class="barra-fondo">
+                                    <div class="barra-relleno" id="barraProfesionales" style="width: 0%"></div>
+                                </div>
+                                <span class="barra-valor" id="barraProfesionalesValor">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="panel">
+                    <header class="panel-header">
+                        <h4>Actividad reciente</h4>
+                    </header>
+                    <div class="panel-body">
+                        <ul class="lista-actividad" id="listaActividad">
+                            <li class="vacio">Sin actividad registrada</li>
+                        </ul>
+                    </div>
+                </section>
+            </section>
+
+            <!-- ============ SECCIÓN USUARIOS ============ -->
+            <section id="seccion-usuarios" class="seccion" aria-labelledby="titulo-usuarios">
+                <h3 id="titulo-usuarios" class="titulo-oculto">Usuarios</h3>
+
+                <div class="panel">
+                    <header class="panel-header">
+                        <h4>Listado de usuarios</h4>
+                        <input
+                            type="search"
+                            id="buscadorUsuarios"
+                            class="buscador"
+                            placeholder="Buscar por nombre o correo..."
+                            aria-label="Buscar usuarios">
+                    </header>
+                    <div class="panel-body">
+                        <div class="tabla-scroll">
+                            <table class="tabla">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Correo</th>
+                                        <th>Documento</th>
+                                        <th>Rol</th>
+                                        <th>Registro</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaUsuarios">
+                                    <tr>
+                                        <td colspan="5" class="vacio">Sin usuarios registrados</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============ SECCIÓN ESTADÍSTICAS ============ -->
+            <section id="seccion-estadisticas" class="seccion" aria-labelledby="titulo-estadisticas">
+                <h3 id="titulo-estadisticas" class="titulo-oculto">Estadísticas</h3>
+
+                <div class="grid-kpis">
+                    <article class="kpi">
+                        <header class="kpi-header">
+                            <h4>Registros este mes</h4>
+                        </header>
+                        <p class="kpi-valor" id="kpiMes">0</p>
+                        <small class="kpi-detalle">Últimos 30 días</small>
+                    </article>
+
+                    <article class="kpi">
+                        <header class="kpi-header">
+                            <h4>Registros esta semana</h4>
+                        </header>
+                        <p class="kpi-valor" id="kpiSemana">0</p>
+                        <small class="kpi-detalle">Últimos 7 días</small>
+                    </article>
+
+                    <article class="kpi">
+                        <header class="kpi-header">
+                            <h4>Menores de edad</h4>
+                        </header>
+                        <p class="kpi-valor" id="kpiMenores">0</p>
+                        <small class="kpi-detalle">Con acudiente</small>
+                    </article>
+
+                    <article class="kpi">
+                        <header class="kpi-header">
+                            <h4>Aceptaron términos</h4>
+                        </header>
+                        <p class="kpi-valor" id="kpiTerminos">0</p>
+                        <small class="kpi-detalle">Del total</small>
+                    </article>
+                </div>
+
+                <section class="panel">
+                    <header class="panel-header">
+                        <h4>Distribución por tipo de documento</h4>
+                    </header>
+                    <div class="panel-body">
+                        <div class="grafico-barras" id="graficoDocumentos">
+                            <div class="barra-item">
+                                <span class="barra-label">T.I</span>
+                                <div class="barra-fondo">
+                                    <div class="barra-relleno" id="barraTI" style="width: 0%"></div>
+                                </div>
+                                <span class="barra-valor" id="barraTIValor">0</span>
+                            </div>
+                            <div class="barra-item">
+                                <span class="barra-label">C.C</span>
+                                <div class="barra-fondo">
+                                    <div class="barra-relleno" id="barraCC" style="width: 0%"></div>
+                                </div>
+                                <span class="barra-valor" id="barraCCValor">0</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </section>
+
+            <!-- ============ SECCIÓN REPORTES ============ -->
+            <section id="seccion-reportes" class="seccion" aria-labelledby="titulo-reportes">
+                <h3 id="titulo-reportes" class="titulo-oculto">Reportes</h3>
+                <div class="panel">
+                    <header class="panel-header">
+                        <h4>Exportar datos</h4>
+                    </header>
+                    <div class="panel-body">
+                        <p class="texto-info">Descarga la información del sistema en formato CSV.</p>
+                        <button type="button" class="btn" id="btnExportarCSV">
+                            Descargar usuarios (CSV)
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============ SECCIÓN CONFIGURACIÓN ============ -->
+            <section id="seccion-configuracion" class="seccion" aria-labelledby="titulo-configuracion">
+                <h3 id="titulo-configuracion" class="titulo-oculto">Configuración</h3>
+                <div class="panel">
+                    <header class="panel-header">
+                        <h4>Preferencias</h4>
+                    </header>
+                    <div class="panel-body">
+                        <label class="switch">
+                            <input type="checkbox" id="modoOscuro">
+                            <span>Modo oscuro</span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <footer class="footer-pagina">
+            <small>&copy; 2025 Sistema de Autenticación &mdash; Panel de administración</small>
+        </footer>
+    </div>
+
+    <script src="dashboard.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Inicio de sesión del sistema de autenticación">
+    <title>Iniciar Sesión</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+
+<body>
+
+    <main class="login-container">
+
+        <form class="form" id="loginForm" action="pagina.html" method="post">
+
+            <h2>Iniciar Sesión</h2>
+
+            <fieldset class="grupo-rol">
+                <legend class="subtitulo">Selecciona el tipo de usuario:</legend>
+                <div class="roles">
+                    <label class="opcion">
+                        <input type="radio" name="tipoUsuario" value="Aprendiz" checked required>
+                        <span class="check" aria-hidden="true"></span>
+                        <span class="texto">Aprendiz</span>
+                    </label>
+                    <label class="opcion">
+                        <input type="radio" name="tipoUsuario" value="Profesional" required>
+                        <span class="check" aria-hidden="true"></span>
+                        <span class="texto">Profesional</span>
+                    </label>
+                </div>
+            </fieldset>
+
+            <div class="input-group">
+                <label for="loginUsuario">Nombre o correo</label>
+                <input
+                    type="text"
+                    id="loginUsuario"
+                    name="loginUsuario"
+                    placeholder="Ingresa tu nombre o correo"
+                    autocomplete="username"
+                    minlength="3"
+                    maxlength="50"
+                    title="Ingresa tu nombre de usuario (mínimo 3 caracteres) o tu correo electrónico"
+                    required>
+                <small class="error-campo" id="errorUsuario" aria-live="polite"></small>
+            </div>
+
+            <!-- login.html -->
+<div class="input-group">
+    <label for="loginPassword">Contraseña</label>
+    <div class="campo-password">
+        <input
+            type="password"
+            id="loginPassword"
+            name="loginPassword"
+            placeholder="Ingresa tu contraseña"
+            autocomplete="current-password"
+            minlength="6"
+            maxlength="100"
+            title="La contraseña debe tener al menos 6 caracteres"
+            required>
+        <button type="button" class="btn-toggle-pass" id="togglePassword" aria-label="Mostrar u ocultar contraseña">
+            👁️
+        </button>
+    </div>
+    <small class="error-campo" id="errorPassword" aria-live="polite"></small>
+</div>
+
+            <div class="opciones">
+                <label class="recordarme">
+                    <input type="checkbox" id="recordarme" name="recordarme"> Recordarme
+                </label>
+                <a href="olvido.html">¿Olvidaste tu contraseña?</a>
+            </div>
+
+            <button type="submit" class="btn">Entrar</button>
+
+            <p class="mensaje" id="mensajeLogin" role="status" aria-live="polite"></p>
+
+            <p class="cambio-form">
+                ¿No tienes cuenta?
+                <a href="registro.html">Regístrate aquí</a>
+            </p>
+        </form>
+    </main>
+
+    <script src="login.js"></script>
+</body>
+
+</html>
