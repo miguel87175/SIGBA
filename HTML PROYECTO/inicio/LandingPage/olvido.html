@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperar Contraseña</title>
+    <link rel="stylesheet" href="olvido.css">
+</head>
+
+<body>
+
+    <div class="login-container">
+
+        <!-- ============ FORMULARIO DE OLVIDÉ CONTRASEÑA ============ -->
+        <form class="form" id="olvidoForm" novalidate>
+            <h2>Recuperar Contraseña</h2>
+
+            <p class="texto-info">
+                Ingresa tu correo electrónico y te enviaremos un código para restablecer tu contraseña.
+            </p>
+
+            <div class="input-group">
+                <label for="olvidoEmail">Correo electrónico</label>
+                <input type="email" id="olvidoEmail" name="olvidoEmail" placeholder="tucorreo@ejemplo.com"
+                    autocomplete="email" maxlength="100" required>
+                <small class="error-campo" id="errorOlvidoEmail"></small>
+            </div>
+
+            <button type="submit" class="btn">Enviar código</button>
+
+            <p class="mensaje" id="mensajeOlvido"></p>
+
+            <p class="cambio-form">
+                <a href="login.html">← Volver al inicio de sesión</a>
+            </p>
+        </form>
+
+        <!-- ============ FORMULARIO DE NUEVA CONTRASEÑA ============ -->
+        <form class="form oculto" id="resetForm" novalidate>
+            <h2>Nueva Contraseña</h2>
+
+            <p class="texto-info">
+                Ingresa el código que recibiste y tu nueva contraseña.
+            </p>
+
+            <div class="input-group">
+                <label for="resetCodigo">Código de verificación</label>
+                <input type="text" id="resetCodigo" name="resetCodigo" placeholder="Ej: 123456" inputmode="numeric"
+                    pattern="[0-9]{6}" maxlength="6" required>
+                <small class="error-campo" id="errorResetCodigo"></small>
+            </div>
+
+            <div class="input-group">
+                <label for="resetPassword">Nueva contraseña</label>
+                <input type="password" id="resetPassword" name="resetPassword" placeholder="Nueva contraseña"
+                    autocomplete="new-password" minlength="6" maxlength="100" required>
+                <small class="error-campo" id="errorResetPassword"></small>
+            </div>
+
+            <div class="input-group">
+                <label for="resetPassword2">Confirmar contraseña</label>
+                <input type="password" id="resetPassword2" name="resetPassword2" placeholder="Repite la contraseña"
+                    autocomplete="new-password" minlength="6" maxlength="100" required>
+                <small class="error-campo" id="errorResetPassword2"></small>
+            </div>
+
+            <button type="submit" class="btn">Cambiar contraseña</button>
+
+            <p class="mensaje" id="mensajeReset"></p>
+
+            <p class="cambio-form">
+                <a href="login.html">← Volver al inicio de sesión</a>
+            </p>
+        </form>
+
+    </div>
+
+    <script src="olvido.js"></script>
+</body>
+
+</html>
